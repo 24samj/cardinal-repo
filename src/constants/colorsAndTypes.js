@@ -148,3 +148,16 @@ export const cssColors = [
     "Yellow",
     "YellowGreen",
 ];
+
+export const borderStyles = [
+    "None",
+    "Hidden",
+    "Dotted",
+    "Dashed",
+    "Solid",
+    "Double",
+    "Groove",
+    "Ridge",
+    "Inset",
+    "Outset",
+];

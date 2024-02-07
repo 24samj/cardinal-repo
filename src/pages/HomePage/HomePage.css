@@ -14,13 +14,17 @@
     align-items: center;
     border-right: 1px solid black;
     background-color: lavenderblush;
+    transition: 0.2s all ease;
 }
 
 .container-header {
     position: absolute;
+    height: 50px;
     top: 0%;
     text-align: center;
     border-bottom: 1px solid black;
+    padding: 5px 40px;
+    z-index: 2;
 }
 .container-header:nth-of-type(0) {
     width: 40%;
@@ -29,7 +33,16 @@
     width: 60%;
 }
 
+.preview-bg-color-container {
+    position: absolute;
+    bottom: 5%;
+    display: flex;
+    gap: 50px;
+}
+
 .controls-container {
+    padding-top: 150px;
+    padding-bottom: 50px;
     height: 100vh;
     width: 60%;
     display: flex;
@@ -37,6 +50,7 @@
     justify-content: center;
     /* align-items: center; */
     background-color: azure;
+    overflow-y: scroll;
 }
 
 .controls-container > div {
@@ -62,8 +76,13 @@
 .controls-container > div > div > div {
     /*name reset rows*/
     display: flex;
-    align-items: center;
     justify-content: space-between;
+}
+.reset-value-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
 }
 .reset-btn {
     scale: 1.5;
@@ -73,6 +92,14 @@
 .reset-btn:hover {
     rotate: 360deg;
     scale: 2;
+}
+
+.view-code-btn {
+    cursor: pointer;
+    transition: 0.4s all ease;
+}
+.view-code-btn:hover {
+    scale: 1.5;
 }
 
 input {
@@ -96,4 +123,15 @@ select {
 }
 select:hover {
     opacity: 1;
+}
+.code-container {
+    margin-top: 50px;
+}
+.code-container > textarea {
+    padding: 10px;
+    height: calc(50vh - 25px);
+    width: 50%;
+    resize: none;
+    background-color: whitesmoke;
+    color: black;
 }
