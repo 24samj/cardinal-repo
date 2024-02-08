@@ -9,6 +9,8 @@ const Card = ({
     borderColor,
     borderRadius,
     boxShadow,
+    contentPadding,
+    contentColor,
 }) => {
     return (
         <div
@@ -22,7 +24,11 @@ const Card = ({
                 borderColor: borderColor,
                 borderRadius: borderRadius + "px",
                 boxShadow: boxShadow,
-            }}></div>
+                padding: contentPadding,
+                color: contentColor,
+            }}>
+            Card content.
+        </div>
     );
 };
 

@@ -4,3 +4,9 @@
     border: 1px solid black;
     transition: 0.2s all ease;
 }
+
+.content {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+}
