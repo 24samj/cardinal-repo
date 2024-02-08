@@ -37,7 +37,7 @@ const HomePage = () => {
         setCardHeight(300);
         setCardWidth(300);
         setCardBackgroundColor("");
-        setCardBorderWidth(0);
+        setCardBorderWidth(1);
         setCardBorderType("solid");
         setCardBorderColor("black");
         setCardBorderRadius(0);
