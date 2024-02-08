@@ -22,36 +22,85 @@ const HomePage = () => {
     const [boxShadowSpread, setBoxShadowSpread] = useState(0);
     const [boxShadowColor, setBoxShadowColor] = useState("black");
     const [boxShadowType, setBoxShadowType] = useState("");
-    const [codeVisible, setCodeVisible] = useState(false);
     const [contentPadding, setContentPadding] = useState(0);
     const [contentColor, setContentColor] = useState("black");
+    const [codeVisible, setCodeVisible] = useState(false);
+    const [htmlCodeCopied, setHtmlCodeCopied] = useState(false);
+    const [cssCodeCopied, setCssCodeCopied] = useState(false);
 
     useEffect(() => {
         setContainerHeight(window.innerHeight * 0.8);
         setContainerWidth(window.innerWidth * 0.4);
-        console.log(document.getElementsByClassName("card-preview"));
     }, []);
+
+    const handleResetState = () => {
+        setCardHeight(300);
+        setCardWidth(300);
+        setCardBackgroundColor("");
+        setCardBorderWidth(0);
+        setCardBorderType("solid");
+        setCardBorderColor("black");
+        setCardBorderRadius(0);
+        setBoxShadowX(0);
+        setBoxShadowY(0);
+        setBoxShadowBlur(0);
+        setBoxShadowSpread(0);
+        setBoxShadowColor("black");
+        setBoxShadowType("");
+        setContentPadding(0);
+        setContentColor("black");
+    };
+
+    const handleCopyToClipboard = (textareaId) => {
+        const setCopiedState = (stateSetter) => {
+            stateSetter(true);
+            const textarea = document.getElementById(textareaId);
+            textarea.select();
+            document.execCommand("copy");
+            textarea.selectionStart = textarea.selectionEnd = 0;
+            setTimeout(() => {
+                stateSetter(false);
+            }, 3000);
+        };
+
+        if (textareaId === "html") {
+            setCopiedState(setHtmlCodeCopied);
+        } else {
+            setCopiedState(setCssCodeCopied);
+        }
+    };
 
     return (
         <div className="homepage-container">
             <div
                 className="preview-container"
                 style={{ backgroundColor: previewBackgroundColor }}>
-                <h1 className="container-header">
+                <h1
+                    className="container-header"
+                    style={{ backgroundColor: "lavendarblush" }}>
                     <i>Preview</i>
                 </h1>
                 <div
-                    className="preview-card"
+                    className="preview-card-container"
                     style={{ borderRadius: cardBorderRadius + "px" }}>
                     <Card
                         height={cardHeight}
                         width={cardWidth}
                         backgroundColor={cardBackgroundColor}
-                        borderWidth={cardBorderWidth}
-                        borderType={cardBorderType}
-                        borderColor={cardBorderColor}
+                        border={
+                            cardBorderWidth +
+                            "px " +
+                            cardBorderType +
+                            " " +
+                            cardBorderColor
+                        }
                         borderRadius={cardBorderRadius}
-                        boxShadow={`${boxShadowX}px ${boxShadowY}px ${boxShadowBlur}px ${boxShadowSpread}px ${boxShadowColor} ${boxShadowType}`}
+                        boxShadowX={boxShadowX}
+                        boxShadowY={boxShadowY}
+                        boxShadowBlur={boxShadowBlur}
+                        boxShadowSpread={boxShadowSpread}
+                        boxShadowColor={boxShadowColor}
+                        boxShadowType={boxShadowType}
                         contentPadding={contentPadding}
                         contentColor={contentColor}
                     />
@@ -70,13 +119,6 @@ const HomePage = () => {
                             </option>
                         ))}
                     </select>
-                    <div
-                        className="reset-btn"
-                        onClick={() => {
-                            setPreviewBackgroundColor("lavendarblush");
-                        }}>
-                        ⭮
-                    </div>
                 </div>
             </div>
             <div
@@ -101,7 +143,13 @@ const HomePage = () => {
                         👁
                     </div>
                     <i>Controls</i>
-                    <h5 className="reset-btn">⭮</h5>
+                    <h5
+                        className="reset-btn"
+                        onClick={() => {
+                            handleResetState();
+                        }}>
+                        ⭮
+                    </h5>
                 </h1>
                 {!codeVisible ? (
                     <section className="controllers-section">
@@ -128,7 +176,8 @@ const HomePage = () => {
                                     </div>
                                     <input
                                         type="range"
-                                        min="10"
+                                        min={20}
+                                        step={10}
                                         max={containerHeight}
                                         value={cardHeight}
                                         onChange={(event) => {
@@ -156,7 +205,8 @@ const HomePage = () => {
                                     </div>
                                     <input
                                         type="range"
-                                        min="10"
+                                        min={100}
+                                        step={10}
                                         max={containerWidth}
                                         value={cardWidth}
                                         onChange={(event) => {
@@ -572,32 +622,69 @@ const HomePage = () => {
                     </section>
                 ) : (
                     <div className="code-container">
-                        <textarea
-                            rows="4"
-                            cols="50"
-                            type="text"
-                            value={`<div className="card">Card content.</div>`}
-                        />
-                        <textarea
-                            type="text"
-                            value={`.card {
-    height: ${cardHeight}px;
-    width: ${cardWidth}px;
-    border: ${cardBorderWidth}px ${cardBorderType.toLowerCase()} ${cardBorderColor};
-    ${cardBorderRadius ? `border-radius: ${cardBorderRadius}px;` : ""}
-    ${
-        boxShadowX ||
-        boxShadowY ||
-        boxShadowBlur ||
-        boxShadowSpread ||
-        boxShadowType
-            ? `box-shadow: ${boxShadowX}px ${boxShadowY}px ${boxShadowBlur}px ${boxShadowSpread}px ${boxShadowColor} ${boxShadowType};`
-            : ""
-    }
-    padding: ${contentPadding}px;
-    color: ${contentColor.toLowerCase()};
+                        <div className="html-code">
+                            <textarea
+                                id="html"
+                                spellCheck="false"
+                                type="text"
+                                readOnly
+                                value={`<div className="card">
+        Card content.
+</div>`}
+                            />
+                            <div className="code-footer">
+                                <h2>HTML</h2>
+                                <i
+                                    className={
+                                        htmlCodeCopied
+                                            ? "copied-message visible"
+                                            : "copied-message"
+                                    }>
+                                    Copied!
+                                </i>
+                                <h2
+                                    className="copy-btn"
+                                    onClick={() => {
+                                        handleCopyToClipboard("html");
+                                    }}>
+                                    📋
+                                </h2>
+                            </div>
+                        </div>
+                        <div className="css-code">
+                            <textarea
+                                id="css"
+                                spellCheck="false"
+                                type="text"
+                                readOnly
+                                value={`.card {
+\t${document
+                                    .getElementsByClassName("card-preview")[0]
+                                    .attributes[1].value.split(";")
+                                    .map((style) => style.trim())
+                                    .slice(0, -1)
+                                    .join(";\n\t")};
 }`}
-                        />
+                            />
+                            <div className="code-footer">
+                                <h2>CSS</h2>
+                                <i
+                                    className={
+                                        cssCodeCopied
+                                            ? "copied-message visible"
+                                            : "copied-message"
+                                    }>
+                                    Copied!
+                                </i>
+                                <h2
+                                    className="copy-btn"
+                                    onClick={() => {
+                                        handleCopyToClipboard("css");
+                                    }}>
+                                    📋
+                                </h2>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

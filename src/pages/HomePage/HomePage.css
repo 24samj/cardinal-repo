@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.preview-card {
+.preview-card-container {
     background-color: white;
 }
 
@@ -22,7 +22,7 @@
     height: 50px;
     top: 0%;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: 3px dotted black;
     padding: 5px 40px;
     z-index: 2;
 }
@@ -33,6 +33,14 @@
     width: 60%;
 }
 
+.view-code-btn {
+    cursor: pointer;
+    transition: 0.4s all ease;
+}
+.view-code-btn:hover {
+    scale: 1.5;
+}
+
 .preview-bg-color-container {
     position: absolute;
     bottom: 5%;
@@ -41,7 +49,7 @@
 }
 
 .controls-container {
-    padding-top: 450px;
+    padding-top: 400px;
     padding-bottom: 50px;
     height: 100vh;
     width: 60%;
@@ -68,7 +76,6 @@
 }
 
 .controls-row > div {
-    /*individual control*/
     width: 250px;
     border: 3px solid black;
     border-radius: 15px;
@@ -100,18 +107,10 @@
     scale: 2;
 }
 
-.view-code-btn {
-    cursor: pointer;
-    transition: 0.4s all ease;
-}
-.view-code-btn:hover {
-    scale: 1.5;
-}
-
 input {
     cursor: pointer;
     opacity: 0.5;
-    transition: 0.3s all ease;
+    transition: 0.2s all ease;
     width: 100%;
 }
 input:hover {
@@ -126,19 +125,49 @@ select {
     color: black;
     cursor: pointer;
     opacity: 0.5;
-    transition: 0.3s all ease;
+    transition: 0.2s all ease;
 }
 select:hover {
     opacity: 1;
 }
 .code-container {
     margin-top: 50px;
+    display: flex;
 }
-.code-container > textarea {
-    padding: 10px;
+.code-container > div {
     height: calc(50vh - 25px);
     width: 50%;
+}
+
+.code-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 25px;
+}
+
+.copied-message {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.copy-btn {
+    cursor: pointer;
+    transition: 0.2s all ease;
+}
+.copy-btn:hover {
+    scale: 1.1;
+}
+
+textarea {
+    height: 100%;
+    width: 100%;
+    color: black;
+    padding: 10px;
     resize: none;
     background-color: whitesmoke;
-    color: black;
 }

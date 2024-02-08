@@ -4,11 +4,14 @@ const Card = ({
     height,
     width,
     backgroundColor,
-    borderWidth,
-    borderType,
-    borderColor,
+    border,
     borderRadius,
-    boxShadow,
+    boxShadowX,
+    boxShadowY,
+    boxShadowBlur,
+    boxShadowSpread,
+    boxShadowColor,
+    boxShadowType,
     contentPadding,
     contentColor,
 }) => {
@@ -18,13 +21,27 @@ const Card = ({
             style={{
                 height: height,
                 width: width,
-                backgroundColor: backgroundColor,
-                borderWidth: borderWidth + "px",
-                borderStyle: borderType,
-                borderColor: borderColor,
-                borderRadius: borderRadius + "px",
-                boxShadow: boxShadow,
-                padding: contentPadding,
+                ...(backgroundColor && { backgroundColor: backgroundColor }),
+                border: border,
+                ...(borderRadius && { borderRadius: borderRadius + "px" }),
+                ...((boxShadowX ||
+                    boxShadowY ||
+                    boxShadowBlur ||
+                    boxShadowSpread) && {
+                    boxShadow:
+                        boxShadowX +
+                        "px " +
+                        boxShadowY +
+                        "px " +
+                        boxShadowBlur +
+                        "px " +
+                        boxShadowSpread +
+                        "px " +
+                        boxShadowColor +
+                        " " +
+                        boxShadowType,
+                }),
+                ...(contentPadding && { padding: contentPadding + "px" }),
                 color: contentColor,
             }}>
             Card content.

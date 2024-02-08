@@ -1,4 +1,5 @@
 export const cssColors = [
+    "Black",
     "AliceBlue",
     "AntiqueWhite",
     "Aqua",
@@ -6,7 +7,6 @@ export const cssColors = [
     "Azure",
     "Beige",
     "Bisque",
-    "Black",
     "BlanchedAlmond",
     "Blue",
     "BlueViolet",
@@ -150,11 +150,10 @@ export const cssColors = [
 ];
 
 export const borderStyles = [
-    "None",
+    "Solid",
     "Hidden",
     "Dotted",
     "Dashed",
-    "Solid",
     "Double",
     "Groove",
     "Ridge",
